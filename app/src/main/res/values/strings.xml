@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NotesAppSimpleStack</string>
+    <string name="sign_in">Sign in</string>
+    <string name="i_already_have_an_account">I already have an account</string>
+    <string name="organize_your_notes">Organize your tasks and lists to get the job done faster</string>
+    <string name="content_description_login_image">Login image cover</string>
+    <string name="placeholder_password">Password</string>
+    <string name="placeholder_email">Email</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="back">Back</string>
+    <string name="sign_in_description">Lorem ipsum dolor sit amet consectetur.</string>
+    <string name="create_an_account_descrription">Lorem ipsum dolor sit amet</string>
+    <string name="placeholder_name">Type your name</string>
+    <string name="placeholder_bio">Type your bio</string>
+    <string name="terms_and_condition">By creating an account, it means you are agree to our terms and conditions</string>
+</resources>
