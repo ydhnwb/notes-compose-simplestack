@@ -13,4 +13,10 @@
     <string name="placeholder_name">Type your name</string>
     <string name="placeholder_bio">Type your bio</string>
     <string name="terms_and_condition">By creating an account, it means you are agree to our terms and conditions</string>
+    <string name="error_email_not_valid">Email is not valid</string>
+    <string name="error_password_not_valid">Password is not valid</string>
+    <string name="dialog_login">There was an error</string>
+    <string name="dialog_login_subtitle">Please check again your email and password and make sure it\'s correct</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>
