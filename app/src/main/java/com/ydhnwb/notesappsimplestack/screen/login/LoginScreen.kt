@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ydhnwb.notesappsimplestack.R
+import com.ydhnwb.notesappsimplestack.screen.components.AlertPopup
 import com.ydhnwb.notesappsimplestack.util.isValidEmail
 import com.ydhnwb.notesappsimplestack.util.set
 
@@ -101,7 +102,7 @@ fun LoginScreen(
                 onValueChange = viewModel.password::set,
                 visualTransformation = remember { PasswordVisualTransformation() },
                 singleLine = true,
-                isError = !passwordIsValid && password.isNotEmpty(),
+                isError = !passwordIsValid && password.isNotEmpty() && password.length < 6,
                 supportingText = {
                     if(!passwordIsValid && password.isNotEmpty()){
                         Text(stringResource(R.string.error_password_not_valid), color = Color.Red)
@@ -132,28 +133,4 @@ fun LoginScreen(
             onCancelTitle = stringResource(id = R.string.cancel)
         )
     }
-}
-
-@Composable
-fun AlertPopup(
-    onDismiss: () -> Unit,
-    onOk: () -> Unit,
-    title: String,
-    subTitle: String,
-    icon: ImageVector,
-    onOkTitle: String,
-    onCancelTitle: String
-){
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        icon = { Icon(icon, contentDescription = "") },
-        title = { Text(title) },
-        text = { Text(subTitle) },
-        confirmButton = {
-            TextButton(onClick = onOk) { Text(text = onOkTitle) }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) { Text(text = onCancelTitle) }
-        }
-    )
 }

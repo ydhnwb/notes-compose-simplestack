@@ -71,13 +71,13 @@ class LoginViewModel(
 
     override fun onServiceRegistered() {
         validateBy(
-            email.map { it.isNotBlank() && isValidEmail(it) },
+            email.map { it.isNotEmpty() && isValidEmail(it) },
         ).subscribeBy { isEnabled ->
             isEmailValidRelay.set(isEnabled)
         }.addTo(compositeDisposable)
 
         validateBy(
-            password.map { it.isNotBlank() && it.length >= 6 }
+            password.map { it.isNotEmpty() && it.length >= 6 }
         ).subscribeBy { isEnabled ->
             isPasswordValidRelay.set(isEnabled)
         }.addTo(compositeDisposable)

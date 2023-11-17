@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -24,6 +25,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rxjava2.subscribeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,14 +33,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ydhnwb.notesappsimplestack.R
+import com.ydhnwb.notesappsimplestack.screen.components.AlertPopup
 import com.ydhnwb.notesappsimplestack.util.set
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen (
     viewModel: RegisterViewModel
 ){
+    val name = viewModel.name.subscribeAsState(initial = "").value
+    val email = viewModel.email.subscribeAsState(initial = "").value
+    val bio = viewModel.bio.subscribeAsState(initial = "").value
+    val password = viewModel.password.subscribeAsState(initial = "").value
+    val alertDialog = viewModel.alertDialog.subscribeAsState(initial = false).value
+
+    val nameIsValid = viewModel.nameIsValid.subscribeAsState(initial = false).value
+    val emailIsValid = viewModel.emailIsValid.subscribeAsState(initial = false).value
+    val bioIsValid = viewModel.bioIsValid.subscribeAsState(initial = false).value
+    val passwordIsValid = viewModel.isPasswordValid.subscribeAsState(initial = false).value
+
+
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -70,36 +84,60 @@ fun RegisterScreen (
             modifier = Modifier.padding(16.dp)
         ) {
             TextField(
-                value = viewModel.name.subscribeAsState(initial = "").value,
+                value = name,
                 onValueChange = viewModel.name::set,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.placeholder_name)) }
+                placeholder = { Text(stringResource(R.string.placeholder_name)) },
+                isError = !nameIsValid && name.isNotEmpty(),
+                supportingText = {
+                    if (!nameIsValid && name.isNotEmpty()){
+                        Text(stringResource(R.string.error_name_not_valid))
+                    }
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
-                value = viewModel.email.subscribeAsState(initial = "").value,
+                value = email,
                 onValueChange = viewModel.email::set,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.placeholder_email)) }
+                placeholder = { Text(stringResource(R.string.placeholder_email)) },
+                isError = !emailIsValid && email.isNotEmpty(),
+                supportingText = {
+                    if (!emailIsValid && email.isNotEmpty()){
+                        Text(stringResource(R.string.error_email_not_valid), color = Color.Red)
+                    }
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
-                value = viewModel.bio.subscribeAsState(initial = "").value,
+                value = bio,
                 onValueChange = viewModel.bio::set,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.placeholder_bio)) }
+                placeholder = { Text(stringResource(R.string.placeholder_bio)) },
+                isError = !bioIsValid && bio.isNotEmpty(),
+                supportingText = {
+                    if(!bioIsValid && bio.isNotEmpty()){
+                        Text(stringResource(R.string.error_bio_not_valid), color = Color.Red)
+                    }
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
-                value = viewModel.password.subscribeAsState(initial = "").value,
+                value = password,
                 onValueChange = viewModel.password::set,
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.placeholder_password)) }
+                placeholder = { Text(stringResource(R.string.placeholder_password)) },
+                isError = !passwordIsValid && password.isNotEmpty() && password.length < 6,
+                supportingText = {
+                    if(!passwordIsValid && password.isNotEmpty() && password.length < 6){
+                        Text(stringResource(R.string.error_password_not_valid), color = Color.Red)
+                    }
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
@@ -107,7 +145,8 @@ fun RegisterScreen (
                     .fillMaxWidth()
                     .height(48.dp)
                 ,
-                onClick = {  }
+                onClick = viewModel::onRegisterClick,
+                enabled = nameIsValid && emailIsValid && bioIsValid && passwordIsValid
             ) {
                 Text(stringResource(id = R.string.create_an_account))
             }
@@ -122,7 +161,23 @@ fun RegisterScreen (
                     .padding(16.dp)
             )
         }
-
-
+    }
+    
+    if(alertDialog){
+        AlertPopup(
+            onDismiss = {
+                viewModel.resetForm()
+                viewModel.alertDialog.set(false)
+            },
+            onOk = {
+                viewModel.alertDialog.set(false)
+                viewModel.onDialogOKClick()
+            },
+            title = stringResource(R.string.success_register),
+            subTitle = stringResource(R.string.success_register_subtitle),
+            icon = Icons.Filled.CheckCircle,
+            onOkTitle = stringResource(R.string.ok),
+            onCancelTitle = stringResource(R.string.close)
+        )
     }
 }

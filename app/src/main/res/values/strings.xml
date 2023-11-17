@@ -19,4 +19,9 @@
     <string name="dialog_login_subtitle">Please check again your email and password and make sure it\'s correct</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="error_name_not_valid">Name is not valid</string>
+    <string name="error_bio_not_valid">Bio is not valid</string>
+    <string name="success_register">Registration successful</string>
+    <string name="success_register_subtitle">Registration is succes. Please go to login page and sign in</string>
+    <string name="close">Close</string>
 </resources>
