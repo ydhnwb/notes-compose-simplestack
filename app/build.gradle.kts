@@ -86,7 +86,7 @@ dependencies {
     // compose
     implementation("androidx.compose.runtime:runtime-rxjava2:$composeVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.activity:activity-compose:1.8.1")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.compose.material3:material3:$material3Version")
@@ -99,10 +99,11 @@ dependencies {
     implementation("com.github.Zhuinden.simple-stack-extensions:navigator-ktx:$simpleStackVersion")
     implementation("com.github.Zhuinden.simple-stack-extensions:services:$simpleStackVersion")
     implementation("com.github.Zhuinden.simple-stack-extensions:services-ktx:$simpleStackVersion")
+    implementation("com.github.Zhuinden:simple-stack-compose-integration:0.12.2")
 
     // simple stack state flow replacement
     implementation("com.github.Zhuinden:live-event:1.3.0")
-    implementation("com.github.Zhuinden:rx-combinetuple-kt:1.2.1")
+    implementation("com.github.Zhuinden:rx-combinetuple-kt:1.3.0")
     implementation("com.github.Zhuinden:rx-validateby-kt:2.1.1")
 
 

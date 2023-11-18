@@ -24,4 +24,8 @@
     <string name="success_register">Registration successful</string>
     <string name="success_register_subtitle">Registration is succes. Please go to login page and sign in</string>
     <string name="close">Close</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom_explore">Explore</string>
+    <string name="bottom_saved">Saved</string>
+    <string name="bottom_profile">Profile</string>
 </resources>

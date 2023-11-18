@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.ydhnwb.notesappsimplestack.R
 import com.ydhnwb.notesappsimplestack.app.module.AuthManager
 import com.ydhnwb.notesappsimplestack.core.FragmentStateChanger
+import com.ydhnwb.notesappsimplestack.screen.home.HomeKey
 import com.ydhnwb.notesappsimplestack.screen.landing.LandingKey
 import com.ydhnwb.notesappsimplestack.screen.login.LoginKey
 import com.zhuinden.simplestack.History
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), SimpleStateChanger.NavigationHandler {
             .install(this@MainActivity, androidContentFrame, History.of(
                 when{
 //                    authManager.isLoggedIn() -> {}
-                    else -> LandingKey
+                    else -> HomeKey
                 }
             ))
     }
